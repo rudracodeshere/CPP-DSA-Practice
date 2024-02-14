@@ -27,10 +27,7 @@ int main() {
 	    cin>>arr[i];
     }
     int ans = getInversions(arr, n);
-    cout << ans << endl;
-    for(int i = 0;i<n;i++){
-        cout<<arr[i]<<endl;
-    }
+]
     return 0;
 }
 
