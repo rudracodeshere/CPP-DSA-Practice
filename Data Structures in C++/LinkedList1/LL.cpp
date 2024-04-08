@@ -1,6 +1,7 @@
 #include<iostream>
 using namespace std;
 #include "Node.cpp"
+
 void print(Node *head){
     while(head!=NULL){
         cout<<head->data<<" ";
@@ -59,6 +60,89 @@ if(temp == NULL){
 	cout<<temp->data;
 }
 
+
+
+Node * insertAtI(Node *head, int i , int data){
+    Node *res = new Node(data);
+    if(i == 0){
+        res->next = head;
+        head = res;
+        return head;
+    }
+    Node *temp = head;
+    int count = 0;
+    while(count<i-1&&temp!=NULL){
+        temp = temp->next;
+        count++;
+    }
+    if(temp!=NULL){
+    res->next = temp->next;
+    temp->next = res;
+    }
+    return head;
+}
+Node *deleteNode(Node *head, int pos)
+{
+    if(head == NULL){
+        return head;
+    }
+   if(pos == 0){
+	   Node * temp = head;
+	   head = head->next;
+	   delete temp;
+	   return head;
+   }
+
+	int count = 0;
+	Node * temp = head;
+	while(count<pos-1 && temp!= NULL){
+		temp=temp->next;
+		count++;
+	}
+	if(temp != NULL&&temp->next!=NULL){
+		Node *a = temp->next;
+        Node * b = a->next;
+        temp->next = b;
+        delete a;
+       
+	}
+    return head;
+}
+
+int length(Node *head) {
+    if(head == NULL){
+		return 0;
+	}
+	return 1+length(head->next);
+}
+
+Node* InsertNode(Node *head, int pos, Node* newNode) {
+    if (head == NULL) {
+        return newNode;
+    }
+
+    if (pos == 0) {
+        newNode->next = head;
+        return newNode;
+    }
+
+    head->next = InsertNode(head->next, pos - 1, newNode);
+    return head;
+}
+Node *deleteNodeRec(Node *head, int pos) {
+	if (head == NULL) {
+        return head;
+    }
+
+    if (pos == 0) {
+        Node * a = head->next;;
+		delete head;
+		return a;
+    }
+
+    head->next = deleteNodeRec(head->next, pos - 1);
+    return head;
+}
 int main(){
     // static
     // Node n1(10);
@@ -81,5 +165,7 @@ int main(){
     // print(head);
 
     Node * head = takeInput();
+    print(head);
+    head = deleteNode(head,  5);
     print(head);
 }
