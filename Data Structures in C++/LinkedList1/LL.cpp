@@ -143,6 +143,120 @@ Node *deleteNodeRec(Node *head, int pos) {
     head->next = deleteNodeRec(head->next, pos - 1);
     return head;
 }
+
+int findNode(Node *head, int n) {
+    if (head == NULL) {
+        return -1;
+    }
+    if (head->data == n) {
+        return 0;
+    }
+    int result = findNode(head->next, n);
+    if (result != -1) {
+        return result + 1;
+    }
+    return -1;
+}Node *appendLastNToFirst(Node *head, int n)
+{
+	int length = 0;
+	Node *temp = head;
+	Node * lastNode ;
+
+	while(temp!=NULL){
+		if(temp->next == NULL){
+			lastNode = temp;
+		}
+		temp = temp->next;
+		length++;
+	}
+
+    if(head == NULL|| n ==  0 || n==length){
+		return head;
+	}
+
+	else{
+		temp = head;
+
+		for(int i = 0;i<length-n-1;i++){
+			temp=temp->next;
+		}
+
+	Node * start = temp->next;
+	temp->next = NULL;
+	lastNode ->next = head;
+	return start;
+
+	}
+}Node *removeDuplicates(Node *head) 
+{ if(head == NULL){ return head; } 
+Node * prev = head; 
+Node * curr = head->next; 
+while(curr!=NULL)
+{ if(prev->data==curr->data)
+{ prev->next = curr->next; 
+delete curr; 
+curr = prev->next; } 
+else{ curr = curr->next; 
+prev = prev->next; }
+ } 
+return head; }
+
+void printReverse(Node *head)
+{
+	if(head == NULL){
+		return;
+	}
+
+	printReverse(head ->next);
+	cout<<head->data<<" ";
+}
+
+bool isPalindrome(Node *head) {
+    if (head == NULL || head->next == NULL) {
+        return true;
+    }
+
+    int length = 0;
+    Node *temp = head;
+    while (temp != NULL) {
+        temp = temp->next;
+        length++;
+    }
+
+    int mid = length / 2;
+    temp = head;
+    Node *firstEnd = nullptr;
+    for (int i = 0; i < mid; i++) {
+        temp = temp->next;
+    }
+    if (length % 2 == 0) {
+        firstEnd = temp;
+    } else {
+        firstEnd = temp->next;
+    }
+
+    Node *prev = nullptr;
+    Node *curr = firstEnd;
+    Node *next = nullptr;
+    while (curr != nullptr) {
+        next = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = next;
+    }
+
+    Node *left = head;
+    Node *right = prev;
+    while (right != nullptr) {
+        if (left->data != right->data) {
+            return false;
+        }
+        left = left->next;
+        right = right->next;
+    }
+
+    return true;
+}
 int main(){
     // static
     // Node n1(10);
