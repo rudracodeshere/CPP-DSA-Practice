@@ -104,7 +104,7 @@ Node *deleteNode(Node *head, int pos)
         Node * b = a->next;
         temp->next = b;
         delete a;
-       
+
 	}
     return head;
 }
@@ -187,18 +187,18 @@ int findNode(Node *head, int n) {
 	return start;
 
 	}
-}Node *removeDuplicates(Node *head) 
-{ if(head == NULL){ return head; } 
-Node * prev = head; 
-Node * curr = head->next; 
+}Node *removeDuplicates(Node *head)
+{ if(head == NULL){ return head; }
+Node * prev = head;
+Node * curr = head->next;
 while(curr!=NULL)
 { if(prev->data==curr->data)
-{ prev->next = curr->next; 
-delete curr; 
-curr = prev->next; } 
-else{ curr = curr->next; 
+{ prev->next = curr->next;
+delete curr;
+curr = prev->next; }
+else{ curr = curr->next;
 prev = prev->next; }
- } 
+ }
 return head; }
 
 void printReverse(Node *head)
@@ -297,7 +297,7 @@ Node *mergeTwoSortedLinkedLists(Node *head1, Node *head2) {
     }
 
     Node *fh = NULL;
-    Node *ft = NULL; 
+    Node *ft = NULL;
 
     if (head1->data < head2->data) {
         fh = head1;
@@ -330,6 +330,17 @@ Node *mergeTwoSortedLinkedLists(Node *head1, Node *head2) {
 
     return fh;
 }
+Node* reverseLinkedListRec(Node* head) {
+    if (head == NULL || head->next == NULL) {
+        return head;
+    }
+
+    Node* newHead = reverseLinkedListRec(head->next);
+    head->next->next = head;
+    head->next = NULL;
+    return newHead;
+}
+
 int main(){
     // static
     // Node n1(10);
