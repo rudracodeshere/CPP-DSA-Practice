@@ -61,6 +61,91 @@ Node *skipMdeleteN(Node *head, int M, int N) {
 
     return head;
 }
+Node *swapNodes(Node *head, int i, int j)
+{
+	Node * first = head;
+	Node *firstPrev = NULL;
+	Node *firstNext = NULL;
+	
+	int f = 0;
+	while(f<i){
+		if(f==i-1){
+			firstPrev = first;
+		}
+		first = first->next;
+		f++;
+	}
+	
+
+	Node * second = head;
+	Node *secondPrev = NULL;
+	Node *secondNext = NULL;
+	int l = 0 ;
+	while(l<j){
+				if(l==j-1){
+			secondPrev = second;
+		}
+		second = second->next;
+		l++;
+	}
+
+if(i == j-1){
+	secondNext = second->next;
+	firstPrev->next = second;
+	first->next = secondNext;
+	second->next = first;
+} else {
+        firstNext = first->next;
+        secondNext = second->next;
+        first->next = secondNext;
+        second->next = firstNext;
+        secondPrev->next = first;
+		if(i==0){
+			head = second;
+                } else {
+                        firstPrev->next = second;
+                }
+}
+return head;
+}
+
+Node *rotate(Node *head, int k) {
+     if(k == 0){
+          return head;
+     }
+     Node * tail;
+     Node * temp = head;
+     int length = 0;
+     while(temp!=NULL){
+          temp = temp->next;
+          length++;
+     }
+    if(length == k||length == 1||length == 0||k%length==0){
+          return head;
+     }
+     if(k>length){
+         while(k>=length){
+              k-=length;
+         }
+     }
+     Node *newHead = head;
+     for(int i = 0;i<length-k;i++){
+          if(i == length-k-1){
+               tail = newHead;
+          }
+          newHead=newHead->next;
+     }
+     temp = newHead;
+
+     while (temp->next != NULL) {
+          temp = temp->next;
+     }
+
+     temp->next = head;
+     head = newHead;
+     tail->next = NULL;
+     return head;
+}
 
 // void mergeSort(Node * head){
 //     if(head == NULL){
@@ -78,6 +163,45 @@ Node *skipMdeleteN(Node *head, int M, int N) {
 //     merge();
 // }
 
+Node* bubbleSort(Node* head) {
+    int length = 0;
+    Node* temp = head;
+    while (temp != NULL) {
+        length++;
+        temp = temp->next;
+    }
+
+    for (int i = 0; i < length; i++) {
+        Node * prev = NULL;
+        Node * curr = head;
+        while(curr->next!=NULL){
+            if(curr->data>curr->next->data){
+                if(prev!=NULL){
+                    Node * temp = curr->next;
+                    curr->next = curr->next->next;
+                    prev->next = temp;
+                    temp->next = curr;
+                    prev = temp;
+                    curr = temp->next;
+                }
+                else if(prev == NULL){
+                    Node * temp = head->next;
+                    head->next = head->next->next;
+                    temp->next = head;
+                    head = temp;
+                    prev = head;
+                    curr = head->next;
+                }
+            }
+            else{
+                prev = curr;
+                curr=curr->next;
+            }
+        }
+    }
+
+    return head;
+}
 Node* merge(Node* left, Node* right) {
     if (!left) return right;
     if (!right) return left;
