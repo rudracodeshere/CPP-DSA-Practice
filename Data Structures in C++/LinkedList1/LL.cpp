@@ -341,6 +341,97 @@ Node* reverseLinkedListRec(Node* head) {
     return newHead;
 }
 
+bool palindromeDLL(Node* head){
+
+	if(head==NULL || head->next==NULL){
+		return true;
+	}
+
+
+    Node *last = head;
+
+	while(last->next!=NULL){
+		last = last->next;
+	}
+
+	Node *first = head;
+
+	while(first!=last&&first->prev!=last){
+		if(first->data!=last->data){
+			return false;
+		}
+		else{
+			first = first->next;
+			last = last->prev;
+		}
+	}
+
+	return true;
+}
+
+int findNodeRec(Node *head, int n)
+{
+	if(head==NULL){
+		return -1;
+	}
+
+	if(head->data == n){
+		return 0;
+	}
+	else{
+		int ans=findNodeRec(head->next,n);
+		if(ans==-1){
+			return -1;
+		}
+		else{
+			return 1 + ans;
+		}
+	}
+}
+
+Node *evenAfterOdd(Node *head) {
+    Node *odd = NULL;
+    Node *even = NULL;
+    Node *evenHead = NULL;
+    Node *oddHead = NULL;
+    Node *temp = head;
+
+
+    while (temp != NULL) {
+        if (temp->data % 2 == 0) {
+            if (even == NULL) {
+                even = temp;
+                evenHead = even;
+            } else {
+                even->next = temp;
+                even = even->next;
+            }
+        } else {
+            if (odd == NULL) {
+                odd = temp;
+                oddHead = odd;
+            } else {
+                odd->next = temp;
+                odd = odd->next;
+            }
+        }
+        temp = temp->next;
+    }
+
+    if (oddHead == NULL) {
+        return evenHead;
+    }
+
+    if (evenHead == NULL) {
+        return oddHead;
+    }
+
+    odd->next = evenHead;
+    even->next = NULL;
+
+    return oddHead;
+}
+
 int main(){
     // static
     // Node n1(10);

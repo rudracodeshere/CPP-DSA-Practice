@@ -28,6 +28,39 @@ void print(Node *head){
     cout<<endl;
 }
 
+Node *skipMdeleteN(Node *head, int M, int N) {
+    if (M == 0) {
+        return NULL;
+    }
+    int mPointer = 0;
+    int nPointer = 0;
+    Node *m = head;
+    Node *n;
+
+    while (m != NULL) {
+        for (mPointer = 0; mPointer < M - 1&&m!=NULL; mPointer++) {
+
+            m = m->next;
+        }
+
+         if (m == NULL) {
+
+            return head;
+
+        } 
+        n = m->next;
+        for (nPointer = 0; nPointer < N && n != NULL; nPointer++) {
+            Node *temp = n;
+            n = n->next;
+            delete temp;
+        }
+
+        m->next = n;
+        m = n;
+    }
+
+    return head;
+}
 
 // void mergeSort(Node * head){
 //     if(head == NULL){
