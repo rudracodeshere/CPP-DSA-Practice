@@ -6,6 +6,7 @@ int partitionArray(int input[], int start, int end) {
 			count++;
 		}
 	}
+
 	int ind = start + count;
 	swap(input[start], input[ind]);
 	int i = start;
