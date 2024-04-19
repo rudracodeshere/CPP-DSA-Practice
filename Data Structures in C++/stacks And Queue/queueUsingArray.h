@@ -27,8 +27,24 @@ class QueueUsingArray{
             size++;
         }
         else if(size == capacity){
-            cout << "Queue is full" << endl;
-            return;
+            T *newData = new T[2*capacity];
+            int j = 0;
+            for(int i = firstInd; i < capacity; i++){
+                newData[j] = data[i];
+                j++;
+            }
+            for(int i = 0; i < firstInd; i++){
+                newData[j] = data[i];
+                j++;
+            }
+            delete [] data;
+            data = newData;
+            firstInd = 0;
+            nextInd = capacity;
+            capacity *= 2;
+            data[nextInd] = element;
+            nextInd = (nextInd + 1) % capacity;
+            size++;
         }
         else{
             data[nextInd] = element;
@@ -57,5 +73,5 @@ class QueueUsingArray{
         }
         return ans;
     }
-    
+
 };
