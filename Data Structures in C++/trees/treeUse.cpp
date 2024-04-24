@@ -3,6 +3,30 @@ using namespace std;
 #include "treeClass.cpp"
 #include<queue>
 
+TreeNode<int>* maxDataNode(TreeNode<int>* root) {
+   TreeNode<int>* max = root;
+
+   for(int i = 0;i<root->children.size();i++){
+       TreeNode<int>* ans = maxDataNode(root->children[i]);
+       if(ans->data>max->data){
+           max = ans;
+       }
+
+   }
+
+return max;
+
+}
+
+int sumOfNodes(TreeNode<int>* root) {
+    int sum = root->data;
+    for(int i = 0;i<root->children.size();i++)
+    {
+        sum+=sumOfNodes(root->children[i]);
+    }
+    return sum;
+}
+
 TreeNode * inputLevel(){
 int d;
 cout<<"Enter data: ";
