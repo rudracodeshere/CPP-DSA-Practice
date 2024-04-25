@@ -3,6 +3,33 @@ using namespace std;
 #include "treeClass.cpp"
 #include<queue>
 
+int getLeafNodeCount(TreeNode<int>* root) {
+    if(root->children.size()==0){
+        return 1;
+    }
+    int ans = 0;
+    for(int i = 0;i<root->children.size();i++){
+
+        ans+=getLeafNodeCount(root->children[i]);
+
+    }
+    return ans;
+}
+
+int getHeight(TreeNode<int>* root) {
+        int max = 0;
+    for(int i = 0;i<root->children.size();i++)
+    {
+        int ans = getHeight(root->children[i]);
+        if(ans>max){
+            max = ans;
+        }
+    }
+return 1 + max;
+
+}
+
+
 TreeNode<int>* maxDataNode(TreeNode<int>* root) {
    TreeNode<int>* max = root;
 
