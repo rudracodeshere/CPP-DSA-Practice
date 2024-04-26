@@ -3,6 +3,74 @@ using namespace std;
 #include "treeClass.cpp"
 #include<queue>
 
+bool isPresent(TreeNode<int>* root, int x) {
+    if(root==NULL){
+        return false;
+    }
+    if(root->data==x){
+        return true;
+    }
+
+    bool found = false;;
+    for(int i = 0;i<root->children.size();i++)
+    {
+        
+        found = isPresent(root->children[i],x);
+        if(found == true){
+            return true;
+        }
+    }
+    return found;
+}
+
+int getLargeNodeCount(TreeNode<int>* root, int x) {
+   int count = 0;
+   if(root->data>x){
+       count++;
+   }
+   for(int i = 0;i<root->children.size();i++)
+   {
+       int more = getLargeNodeCount(root->children[i],x);
+       count+=more;
+   }
+
+   return count;
+}
+
+TreeNode<int>* maxSumNode(TreeNode<int>* root) {
+    // Base case
+    if (root == nullptr) {
+        return root;
+    }
+
+    TreeNode<int>* ans = root;
+    int sum = root->data;
+
+    // Calculate the sum of the root node and its children
+    for (int i = 0; i < root->children.size(); i++) {
+        sum += root->children[i]->data;
+    }
+
+    // Recursively find the max sum node in the subtrees
+    for (int i = 0; i < root->children.size(); i++) {
+        TreeNode<int>* childMax = maxSumNode(root->children[i]);
+        int childSum = childMax->data;
+
+        // Calculate the sum of the child node and its children
+        for (int j = 0; j < childMax->children.size(); j++) {
+            childSum += childMax->children[j]->data;
+        }
+
+        // Update the answer if the child's sum is greater than the current sum
+        if (childSum > sum) {
+            sum = childSum;
+            ans = childMax;
+        }
+    }
+
+    return ans;
+}
+
 int getLeafNodeCount(TreeNode<int>* root) {
     if(root->children.size()==0){
         return 1;
